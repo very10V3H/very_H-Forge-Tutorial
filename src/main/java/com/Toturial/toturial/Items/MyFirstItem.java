@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +33,8 @@ public class MyFirstItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if(!level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND))
         {
+            Inventory inventory = player.getInventory();
+            player.sendSystemMessage(Component.literal(String.valueOf(inventory.getContainerSize())));
             player.sendSystemMessage(Component.literal("very_H的教程-物品使用"));
         }
         if(level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND))
