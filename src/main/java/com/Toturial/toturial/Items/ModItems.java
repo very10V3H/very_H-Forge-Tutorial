@@ -12,6 +12,6 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
     public static final RegistryObject<Item> MyFirstItem = ITEMS.register("my_first_item",
-            ()->new MyFirstItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC).rarity(Rarity.EPIC)));
+            ()->new MyFirstItem(new Item.Properties().rarity(Rarity.EPIC)));
 }
 
