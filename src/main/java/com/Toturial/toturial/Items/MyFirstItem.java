@@ -1,7 +1,11 @@
 package com.Toturial.toturial.Items;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -36,6 +41,16 @@ public class MyFirstItem extends Item {
             Inventory inventory = player.getInventory();
             player.sendSystemMessage(Component.literal(String.valueOf(inventory.getContainerSize())));
             player.sendSystemMessage(Component.literal("very_H的教程-物品使用"));
+
+            ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
+                    new ClientboundSetEntityMotionPacket(player.getId(),new Vec3(0,1,0));
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            serverPlayer.connection.send(clientboundSetEntityMotionPacket);
+
+            ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =
+                    new ClientboundLevelParticlesPacket(ParticleTypes.FIREWORK,true,player.getX(),player.getY(),player.getZ(),
+                            0,0,0,0,0);
+            serverPlayer.connection.send(clientboundLevelParticlesPacket);
         }
         if(level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND))
         {

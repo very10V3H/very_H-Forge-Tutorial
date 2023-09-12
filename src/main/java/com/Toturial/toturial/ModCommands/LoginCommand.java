@@ -23,6 +23,6 @@ public class LoginCommand implements Command<CommandSourceStack> {
         else player.sendSystemMessage(Component.literal("密码错误！"));
         return 0;
     }
-    
+
 }
 
